@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4e7d1">
+  <title>嘉義一日・木都散步</title>
+  <meta name="description" content="嘉義市區一日散步路線：檜意森活村、嘉義車庫園區與文化路夜市。">
+  <style>
+    :root { color-scheme: light; --ink: #183b3d; --main: #b55232; --cream: #f4e7d1; --paper: #fffaf1; --muted: #6d5b4b; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--cream); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; font-size: 17px; line-height: 1.7; }
+    .page { width: min(100% - 28px, 680px); margin: 0 auto; padding: 14px 0 42px; }
+    .hero { position: relative; overflow: hidden; min-height: 310px; display: flex; flex-direction: column; justify-content: flex-end; padding: 26px 20px 30px; border-radius: 10px; color: var(--cream); background: linear-gradient(145deg, rgba(24,59,61,.96), rgba(24,59,61,.62)), radial-gradient(circle at 80% 22%, #e1a940 0 9%, transparent 10%), linear-gradient(135deg, #216168, #a74b32); }
+    .hero::before { content: "木都・慢慢走"; position: absolute; top: 22px; right: -22px; padding: 7px 35px; transform: rotate(12deg); background: var(--main); color: var(--cream); font-size: 13px; font-weight: 800; letter-spacing: .14em; }
+    .eyebrow { margin: 0 0 5px; color: #f5cc84; font-size: 13px; font-weight: 800; letter-spacing: .15em; }
+    h1, h2, h3 { font-family: "Noto Serif TC", "Songti TC", "PMingLiU", serif; }
+    h1 { margin: 0; font-size: clamp(34px, 10vw, 48px); line-height: 1.15; letter-spacing: .08em; }
+    .hero p:last-child { max-width: 24em; margin: 9px 0 0; color: #fff2d9; font-size: 16px; }
+    .notice { margin: 12px 2px 20px; padding: 8px 12px; border-left: 4px solid var(--main); color: var(--muted); font-size: 14px; }
+    .day { margin-top: 24px; }
+    .day-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 13px; }
+    .day-number { display: grid; width: 46px; height: 46px; flex: 0 0 46px; place-items: center; border-radius: 50%; background: var(--main); color: var(--cream); font-size: 13px; font-weight: 800; line-height: 1.2; text-align: center; }
+    h2 { margin: 0; font-size: 23px; line-height: 1.25; }
+    .day-heading p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+    .timeline { position: relative; display: grid; gap: 14px; }
+    .timeline::before { content: ""; position: absolute; left: 68px; top: 11px; bottom: 22px; width: 2px; background: #d08b58; }
+    .stop { position: relative; display: grid; grid-template-columns: 58px minmax(0, 1fr); gap: 22px; }
+    .stop::before { content: ""; position: absolute; z-index: 1; left: 63px; top: 12px; width: 10px; height: 10px; border: 2px solid var(--main); border-radius: 50%; background: var(--cream); }
+    .time { padding-top: 8px; color: var(--main); font-size: 14px; font-weight: 800; text-align: right; white-space: nowrap; }
+    .card { padding: 12px 14px; border: 1px solid #d08b58; border-radius: 7px; background: var(--paper); }
+    .card h3 { margin: 0 0 2px; font-size: 19px; line-height: 1.4; }
+    .place { margin: 0 0 4px; color: var(--muted); font-size: 14px; }
+    .card p:last-child { margin: 0; font-size: 16px; }
+    .map-link { display: inline-block; margin-top: 8px; color: var(--main); font-size: 14px; font-weight: 700; text-underline-offset: 3px; }
+    .tips { display: grid; gap: 10px; }
+    .tip { padding: 12px 14px; border-radius: 7px; background: rgba(255,250,241,.7); }
+    .tip strong { color: var(--main); }
+    footer { margin-top: 30px; padding-top: 16px; border-top: 1px solid #d08b58; color: var(--muted); font-size: 13px; text-align: center; }
+    @media (min-width: 600px) { .page { padding-top: 28px; } .hero { min-height: 360px; padding: 30px 26px 36px; } .stop { grid-template-columns: 65px minmax(0, 1fr); gap: 24px; } .timeline::before { left: 76px; } .stop::before { left: 71px; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">嘉義一日遊・同行行程</p>
+      <h1>木都散步</h1>
+      <p>從檜木香氣出發，沿著老火車與街邊小吃，慢慢走完嘉義市區的一天。</p>
+    </header>
+    <p class="notice">路線以嘉義市區步行與短程接駁為主；出發前請再確認各景點開放、展覽與店家營業狀況。</p>
+
+    <section class="day" aria-labelledby="morning">
+      <div class="day-heading"><div class="day-number">上午</div><div><h2 id="morning">林業記憶與老車站</h2><p>先走一段安靜、有木頭香的嘉義</p></div></div>
+      <div class="timeline">
+        <article class="stop"><div class="time">09:30</div><div class="card"><h3>檜意森活村</h3><p class="place">共和路 370 號・北門一帶</p><p>逛日式木屋、林業展覽和小店，留一點時間拍光影。</p><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=檜意森活村" target="_blank" rel="noopener">開啟地圖 ↗</a></div></article>
+        <article class="stop"><div class="time">11:15</div><div class="card"><h3>阿里山森林鐵路車庫園區</h3><p class="place">北門驛周邊</p><p>看看老火車、修理工場和鐵道故事，感受嘉義作為木都與林鐵起點的歷史。</p><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=阿里山森林鐵路車庫園區" target="_blank" rel="noopener">開啟地圖 ↗</a></div></article>
+      </div>
+    </section>
+
+    <section class="day" aria-labelledby="afternoon">
+      <div class="day-heading"><div class="day-number">下午</div><div><h2 id="afternoon">街區午餐與城市散步</h2><p>不趕路，讓一餐飯成為行程的一部分</p></div></div>
+      <div class="timeline">
+        <article class="stop"><div class="time">12:30</div><div class="card"><h3>嘉義市區午餐</h3><p class="place">文化路・噴水圓環周邊</p><p>選一間當天想吃的雞肉飯或小吃店，吃飽再慢慢走進街區。</p><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=嘉義文化路噴水圓環" target="_blank" rel="noopener">找附近店家 ↗</a></div></article>
+        <article class="stop"><div class="time">14:30</div><div class="card"><h3>嘉義市立美術館（可選）</h3><p class="place">廣寧街 101 號</p><p>想避暑或遇到下雨時，改進室內看展，讓下午節奏慢一點。</p><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=嘉義市立美術館" target="_blank" rel="noopener">開啟地圖 ↗</a></div></article>
+      </div>
+    </section>
+
+    <section class="day" aria-labelledby="evening">
+      <div class="day-heading"><div class="day-number">晚上</div><div><h2 id="evening">文化路夜市收尾</h2><p>把想吃的留到最後一站</p></div></div>
+      <div class="timeline">
+        <article class="stop"><div class="time">17:30</div><div class="card"><h3>文化路夜市</h3><p class="place">文化路一帶</p><p>雞肉飯、火雞肉飯、砂鍋魚頭和甜點，依當天心情自由挑選。</p><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=嘉義文化路夜市" target="_blank" rel="noopener">開啟地圖 ↗</a></div></article>
+      </div>
+    </section>
+
+    <section class="day" aria-labelledby="tips">
+      <div class="day-heading"><div class="day-number">備忘</div><div><h2 id="tips">出發前小提醒</h2><p>讓一日遊走得舒服</p></div></div>
+      <div class="tips">
+        <div class="tip"><strong>交通</strong> 嘉義市區景點距離近，建議穿好走的鞋；跨區段可再搭公車或計程車。</div>
+        <div class="tip"><strong>天氣</strong> 夏天日照強，白天帶水、防曬和薄外套；雨天把美術館留作備案。</div>
+        <div class="tip"><strong>彈性</strong> 這是一條可以隨時刪掉一站的行程，留點空白才像旅行。</div>
+      </div>
+    </section>
+
+    <footer>景點背景參考林業及自然保育署、交通部觀光署公開資料；營業與展覽資訊請以各單位公告為準。</footer>
+  </main>
+</body>
+</html>
