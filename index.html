@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fbf1e2">
+  <title>輕.旅.行｜台南兩天一夜</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #321710;
+      --muted: #68483c;
+      --paper: #fff3df;
+      --card: #fffdf7;
+      --green: #7a241b;
+      --orange: #9a7356;
+      --line: #d8a15b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+    }
+    .page { width: min(100% - 28px, 680px); margin: 0 auto; padding: 14px 0 40px; }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 17px 18px 18px;
+      border-radius: 8px;
+      color: #fff8eb;
+      background: #7a241b;
+      border-bottom: 4px solid #ef5b25;
+    }
+    .hero::after {
+      content: "台南・小旅行";
+      position: absolute;
+      right: 2px;
+      bottom: 8px;
+      color: #d9bda5;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      pointer-events: none;
+    }
+    .eyebrow { margin: 0 0 3px; color: #d9bda5; font-size: 11px; font-weight: 700; letter-spacing: .18em; }
+    h1 { position: relative; z-index: 1; margin: 0; font-size: clamp(27px, 7vw, 34px); line-height: 1.2; letter-spacing: .12em; }
+    .intro { position: relative; z-index: 1; max-width: 29em; margin: 4px 0 0; color: #f7e6d0; font-size: 13px; }
+    .notice { margin: 9px 2px 15px; padding: 6px 10px; border-left: 4px solid var(--orange); color: var(--muted); font-size: 12px; }
+    .day { margin-top: 21px; }
+    .day-heading { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; }
+    .day-number { display: grid; width: 44px; height: 44px; flex: 0 0 44px; place-items: center; border-radius: 50%; background: #ead7c4; color: var(--green); font-size: 14px; font-weight: 800; line-height: 1.2; text-align: center; }
+    .day-heading h2 { margin: 0; font-size: 23px; line-height: 1.3; }
+    .day-heading p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+    .stops { display: grid; gap: 11px; }
+    .stop { display: grid; grid-template-columns: 65px 1fr; gap: 12px; padding: 14px; border: 1px solid var(--line); border-left: 4px solid var(--orange); border-radius: 5px; background: var(--card); }
+    .time { padding-top: 2px; color: var(--orange); font-size: 14px; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .stop h3 { margin: 0 0 3px; font-size: 18px; line-height: 1.4; }
+    .place { margin: 0 0 5px; color: var(--muted); font-size: 14px; }
+    .desc { margin: 0; font-size: 15px; }
+    .timeline { position: relative; gap: 0; }
+    .timeline::before { content: ""; position: absolute; left: 67px; top: 8px; bottom: 28px; width: 2px; background: var(--line); }
+    .timeline .stop { position: relative; grid-template-columns: 68px minmax(0, 1fr); gap: 16px; padding: 0 0 20px; border: 0; background: transparent; }
+    .timeline .stop::before { content: ""; position: absolute; z-index: 1; left: 61px; top: 7px; width: 10px; height: 10px; border: 2px solid var(--orange); border-radius: 50%; background: var(--paper); }
+    .timeline .time { padding: 2px 8px 0 0; color: var(--green); text-align: right; white-space: nowrap; }
+    .timeline .stop > div:last-child { min-width: 0; padding: 11px 13px; border: 1px solid var(--line); border-radius: 5px; background: var(--card); }
+    footer { margin-top: 30px; padding: 17px 4px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; text-align: center; }
+    @media (min-width: 600px) { .page { padding-top: 28px; } .hero { padding: 18px 24px; } .stop { grid-template-columns: 76px 1fr; padding: 19px 20px; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">台南兩天一夜・同行行程</p>
+      <h1>輕.旅.行</h1>
+      <p class="intro">兩天一夜，慢慢走、慢慢吃。</p>
+    </header>
+    <p class="notice">行程中的店名與時間目前都是示意，出發前再一起換成實際安排。</p>
+
+    <section class="day" aria-labelledby="day-one">
+      <div class="day-heading">
+        <div class="day-number">DAY<br>01</div>
+        <div><h2 id="day-one">第一天・老城散步</h2><p>抵達台南，從巷弄和小吃開始</p></div>
+      </div>
+      <div class="stops">
+        <article class="stop"><div class="time">10:30</div><div><h3>早午餐｜日光小屋（示意）</h3><p class="place">中西區・友愛街（示意地點）</p><p class="desc">先坐下來吃份早午餐，替接下來的散步補充元氣。</p></div></article>
+        <article class="stop"><div class="time">12:30</div><div><h3>府城巷弄散步</h3><p class="place">中西區・國華街周邊</p><p class="desc">沿著老街慢慢走，看看街屋、選間小店吃點心。</p></div></article>
+        <article class="stop"><div class="time">15:30</div><div><h3>甜點休息｜慢慢甜室（示意）</h3><p class="place">中西區・巷內店家（示意地點）</p><p class="desc">找間舒服的甜點店坐一會兒，享受旅行裡的空白時間。</p></div></article>
+        <article class="stop"><div class="time">18:00</div><div><h3>晚餐｜阿霞小食堂（示意）</h3><p class="place">中西區・永樂市場周邊（示意地點）</p><p class="desc">用一桌台南風味料理收尾，再悠閒地走回住宿休息。</p></div></article>
+      </div>
+    </section>
+
+    <section class="day" aria-labelledby="day-two">
+      <div class="day-heading">
+        <div class="day-number">DAY<br>02</div>
+        <div><h2 id="day-two">第二天・午後慢遊</h2><p>睡飽再出發，感受河岸與老街風景</p></div>
+      </div>
+      <div class="stops timeline">
+        <article class="stop"><div class="time">09:30</div><div><h3>早餐｜巷口豆漿店（示意）</h3><p class="place">中西區・住宿附近（示意地點）</p><p class="desc">用熱豆漿和在地早餐開啟第二天，不用趕著起床。</p></div></article>
+        <article class="stop"><div class="time">11:00</div><div><h3>安平老街漫遊</h3><p class="place">安平區・安平老街周邊</p><p class="desc">逛逛老街與小巷，挑幾樣喜歡的點心帶著走。</p></div></article>
+        <article class="stop"><div class="time">13:30</div><div><h3>午餐｜海風食堂（示意）</h3><p class="place">安平區・安平路附近（示意地點）</p><p class="desc">安排一頓輕鬆的午餐，替返程前的行程留足體力。</p></div></article>
+        <article class="stop"><div class="time">15:00</div><div><h3>河岸散步・返程</h3><p class="place">安平區・運河周邊</p><p class="desc">沿著水岸吹吹風、拍張合照，再帶著滿滿回憶回家。</p></div></article>
+      </div>
+    </section>
+    <section class="day" aria-labelledby="preparation">
+      <div class="day-heading">
+        <div class="day-number">出發<br>前</div>
+        <div><h2 id="preparation">行前提醒</h2><p>以下內容先以示意為主</p></div>
+      </div>
+      <div class="stops">
+        <article class="stop"><div class="time">天氣</div><div><p class="desc">晴時多雲，午後可能有短暫陣雨（示意）。</p></div></article>
+        <article class="stop"><div class="time">攜帶</div><div><p class="desc">帶水、雨傘、防曬用品和舒適好走的鞋（示意）。</p></div></article>
+        <article class="stop"><div class="time">集合</div><div><p class="desc">第一天上午 10:00，台南車站前站集合（示意）。</p></div></article>
+      </div>
+    </section>
+    <footer>時間與地點可依實際交通、訂位和店家營業狀況調整。</footer>
+  </main>
+</body>
+</html>
