@@ -10,67 +10,79 @@
   <style>
     :root {
       color-scheme: light;
-      --ink: #321710;
-      --muted: #68483c;
-      --paper: #fff3df;
-      --card: #fffdf7;
-      --green: #7a241b;
-      --orange: #9a7356;
-      --line: #d8a15b;
+      --main: #A8432B;
+      --background: #FAEACA;
+      --text: #112726;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      background: var(--paper);
-      color: var(--ink);
+      background: var(--background);
+      color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
       font-size: 17px;
-      line-height: 1.65;
+      line-height: 1.7;
     }
+    h1, h2, h3 { font-family: "Noto Serif TC", "Songti TC", "PMingLiU", "Yu Mincho", serif; }
     .page { width: min(100% - 28px, 680px); margin: 0 auto; padding: 14px 0 40px; }
     .hero {
       position: relative;
+      display: flex;
+      min-height: 235px;
+      flex-direction: column;
+      justify-content: center;
       overflow: hidden;
-      padding: 17px 18px 18px;
+      padding: 22px 18px 28px;
       border-radius: 8px;
-      color: #fff8eb;
-      background: #7a241b;
-      border-bottom: 4px solid #ef5b25;
+      color: var(--background);
+      background-color: var(--main);
+      background-image: linear-gradient(90deg, rgba(17, 39, 38, .94) 0%, rgba(17, 39, 38, .76) 39%, rgba(17, 39, 38, .08) 100%), url("images/cover.webp");
+      background-size: cover;
+      background-position: center right;
+      border-bottom: 4px solid var(--main);
     }
     .hero::after {
       content: "台南・小旅行";
       position: absolute;
-      right: 2px;
+      right: 12px;
       bottom: 8px;
-      color: #d9bda5;
+      color: var(--background);
       font-size: 14px;
       font-weight: 700;
       letter-spacing: .08em;
       pointer-events: none;
     }
-    .eyebrow { margin: 0 0 3px; color: #d9bda5; font-size: 11px; font-weight: 700; letter-spacing: .18em; }
-    h1 { position: relative; z-index: 1; margin: 0; font-size: clamp(27px, 7vw, 34px); line-height: 1.2; letter-spacing: .12em; }
-    .intro { position: relative; z-index: 1; max-width: 29em; margin: 4px 0 0; color: #f7e6d0; font-size: 13px; }
-    .notice { margin: 9px 2px 15px; padding: 6px 10px; border-left: 4px solid var(--orange); color: var(--muted); font-size: 12px; }
+    .eyebrow { margin: 0 0 3px; color: var(--background); font-size: 12px; font-weight: 700; letter-spacing: .18em; }
+    h1 { position: relative; z-index: 1; margin: 0; font-size: clamp(30px, 8vw, 40px); line-height: 1.25; letter-spacing: .12em; }
+    .intro { position: relative; z-index: 1; max-width: 29em; margin: 4px 0 0; color: var(--background); font-size: 15px; }
+    .notice { margin: 9px 2px 15px; padding: 6px 10px; border-left: 4px solid var(--main); color: var(--text); font-size: 14px; }
     .day { margin-top: 21px; }
     .day-heading { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; }
-    .day-number { display: grid; width: 44px; height: 44px; flex: 0 0 44px; place-items: center; border-radius: 50%; background: #ead7c4; color: var(--green); font-size: 14px; font-weight: 800; line-height: 1.2; text-align: center; }
+    .day-number { display: grid; width: 44px; height: 44px; flex: 0 0 44px; place-items: center; border-radius: 50%; background: var(--main); color: var(--background); font-size: 14px; font-weight: 800; line-height: 1.2; text-align: center; }
     .day-heading h2 { margin: 0; font-size: 23px; line-height: 1.3; }
-    .day-heading p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+    .day-heading p { margin: 2px 0 0; color: var(--text); font-size: 15px; }
     .stops { display: grid; gap: 11px; }
-    .stop { display: grid; grid-template-columns: 65px 1fr; gap: 12px; padding: 14px; border: 1px solid var(--line); border-left: 4px solid var(--orange); border-radius: 5px; background: var(--card); }
-    .time { padding-top: 2px; color: var(--orange); font-size: 14px; font-weight: 800; font-variant-numeric: tabular-nums; }
-    .stop h3 { margin: 0 0 3px; font-size: 18px; line-height: 1.4; }
-    .place { margin: 0 0 5px; color: var(--muted); font-size: 14px; }
-    .desc { margin: 0; font-size: 15px; }
+    .stop { display: grid; grid-template-columns: 65px minmax(0, 1fr); gap: 12px; padding: 14px; border: 1px solid var(--main); border-left: 4px solid var(--main); border-radius: 5px; background: var(--background); }
+    .time { padding-top: 2px; color: var(--main); font-size: 15px; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .stop h3 { margin: 0 0 3px; font-size: 19px; line-height: 1.4; }
+    .place { margin: 0 0 5px; color: var(--text); font-size: 15px; }
+    .desc { margin: 0; font-size: 17px; }
     .timeline { position: relative; gap: 0; }
-    .timeline::before { content: ""; position: absolute; left: 67px; top: 8px; bottom: 28px; width: 2px; background: var(--line); }
+    .timeline::before { content: ""; position: absolute; left: 67px; top: 8px; bottom: 28px; width: 2px; background: var(--main); }
     .timeline .stop { position: relative; grid-template-columns: 68px minmax(0, 1fr); gap: 16px; padding: 0 0 20px; border: 0; background: transparent; }
-    .timeline .stop::before { content: ""; position: absolute; z-index: 1; left: 61px; top: 7px; width: 10px; height: 10px; border: 2px solid var(--orange); border-radius: 50%; background: var(--paper); }
-    .timeline .time { padding: 2px 8px 0 0; color: var(--green); text-align: right; white-space: nowrap; }
-    .timeline .stop > div:last-child { min-width: 0; padding: 11px 13px; border: 1px solid var(--line); border-radius: 5px; background: var(--card); }
-    footer { margin-top: 30px; padding: 17px 4px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; text-align: center; }
-    @media (min-width: 600px) { .page { padding-top: 28px; } .hero { padding: 18px 24px; } .stop { grid-template-columns: 76px 1fr; padding: 19px 20px; } }
+    .timeline .stop::before { content: ""; position: absolute; z-index: 1; left: 61px; top: 7px; width: 10px; height: 10px; border: 2px solid var(--main); border-radius: 50%; background: var(--background); }
+    .timeline .time { padding: 2px 8px 0 0; color: var(--text); text-align: right; white-space: nowrap; }
+    .timeline .stop > div:last-child { min-width: 0; padding: 11px 13px; border: 1px solid var(--main); border-radius: 5px; background: var(--background); }
+    .dinner-vote { margin-top: 14px; }
+    .dinner-vote input[type="text"] { display: block; width: 100%; margin: 4px 0 10px; padding: 8px 10px; border: 1px solid var(--main); border-radius: 5px; background: var(--background); color: var(--text); font: inherit; }
+    .dinner-vote fieldset { margin: 0 0 10px; padding: 0; border: 0; }
+    .dinner-vote fieldset label { display: block; }
+    .dinner-vote input[type="radio"] { accent-color: var(--main); }
+    .dinner-vote button { padding: 8px 16px; border: 1px solid var(--main); border-radius: 5px; background: var(--main); color: var(--background); font: inherit; cursor: pointer; }
+    .dinner-vote button:disabled { opacity: .65; cursor: wait; }
+    .vote-status, .vote-counts { margin: 8px 0 0; font-size: 15px; }
+    footer { margin-top: 30px; padding: 17px 4px 0; border-top: 1px solid var(--main); color: var(--text); font-size: 14px; text-align: center; }
+    @media (min-width: 600px) { .page { padding-top: 28px; } .hero { min-height: 290px; padding: 28px 24px 34px; } .stop { grid-template-columns: 76px 1fr; padding: 19px 20px; } }
   </style>
 </head>
 <body>
@@ -91,7 +103,23 @@
         <article class="stop"><div class="time">10:30</div><div><h3>早午餐｜日光小屋（示意）</h3><p class="place">中西區・友愛街（示意地點）</p><p class="desc">先坐下來吃份早午餐，替接下來的散步補充元氣。</p></div></article>
         <article class="stop"><div class="time">12:30</div><div><h3>府城巷弄散步</h3><p class="place">中西區・國華街周邊</p><p class="desc">沿著老街慢慢走，看看街屋、選間小店吃點心。</p></div></article>
         <article class="stop"><div class="time">15:30</div><div><h3>甜點休息｜慢慢甜室（示意）</h3><p class="place">中西區・巷內店家（示意地點）</p><p class="desc">找間舒服的甜點店坐一會兒，享受旅行裡的空白時間。</p></div></article>
-        <article class="stop"><div class="time">18:00</div><div><h3>晚餐｜阿霞小食堂（示意）</h3><p class="place">中西區・永樂市場周邊（示意地點）</p><p class="desc">用一桌台南風味料理收尾，再悠閒地走回住宿休息。</p></div></article>
+        <article class="stop"><div class="time">18:00</div><div><h3>晚餐｜阿霞小食堂（示意）</h3><p class="place">中西區・永樂市場周邊（示意地點）</p><p class="desc">用一桌台南風味料理收尾，再悠閒地走回住宿休息。</p>
+          <form class="dinner-vote" id="dinner-vote">
+            <label for="vote-nickname">投票暱稱</label>
+            <input id="vote-nickname" name="nickname" type="text" required maxlength="50" placeholder="請填暱稱" autocomplete="nickname">
+            <fieldset>
+              <legend>晚餐想吃哪一間？</legend>
+              <label><input type="radio" name="choice" value="阿堂鹹粥" required> 阿堂鹹粥</label>
+              <label><input type="radio" name="choice" value="阿村牛肉湯" required> 阿村牛肉湯</label>
+            </fieldset>
+            <button type="submit" id="vote-submit">投一票</button>
+            <p class="vote-status" id="vote-status" role="status" aria-live="polite"></p>
+          </form>
+          <div class="vote-counts" aria-live="polite" aria-label="晚餐投票結果">
+            <p>阿堂鹹粥：<span id="count-porridge">載入中</span> 票</p>
+            <p>阿村牛肉湯：<span id="count-beef">載入中</span> 票</p>
+          </div>
+        </div></article>
       </div>
     </section>
 
@@ -122,5 +150,76 @@
     <img src="tainan-trip-qr.png" alt="台南行程 QR 碼" width="240" height="240" style="display:block; width:min(100%, 240px); height:auto; margin:20px auto;">
     <footer>時間與地點可依實際交通、訂位和店家營業狀況調整。</footer>
   </main>
+  <script>
+    (() => {
+      const SUPABASE_URL = 'https://xpbgtcoiiacszsdgeker.supabase.co';
+      const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_GhwJf-ti7-9-WZ0V1eGEeQ_RXBpRLvr';
+      const endpoint = `${SUPABASE_URL}/rest/v1/votes`;
+      const headers = { apikey: SUPABASE_PUBLISHABLE_KEY };
+      const form = document.getElementById('dinner-vote');
+      const nicknameInput = document.getElementById('vote-nickname');
+      const submitButton = document.getElementById('vote-submit');
+      const status = document.getElementById('vote-status');
+      const options = [
+        { choice: '阿堂鹹粥', counter: document.getElementById('count-porridge') },
+        { choice: '阿村牛肉湯', counter: document.getElementById('count-beef') }
+      ];
+
+      async function refreshCounts() {
+        const counts = await Promise.all(options.map(async ({ choice }) => {
+          const query = new URLSearchParams({ select: 'id', choice: `eq.${choice}` });
+          const response = await fetch(`${endpoint}?${query}`, {
+            method: 'HEAD',
+            headers: { ...headers, Prefer: 'count=exact' },
+            cache: 'no-store'
+          });
+          if (!response.ok) throw new Error('讀取票數失敗');
+          const total = response.headers.get('content-range')?.split('/')[1];
+          if (!total || !/^\d+$/.test(total)) throw new Error('讀取票數失敗');
+          return total;
+        }));
+        options.forEach(({ counter }, index) => { counter.textContent = counts[index]; });
+      }
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (submitButton.disabled) return;
+        const nickname = nicknameInput.value.trim();
+        const choice = new FormData(form).get('choice');
+        if (!nickname) {
+          status.textContent = '請填寫暱稱，不能只填空白。';
+          nicknameInput.focus();
+          return;
+        }
+        if (!options.some((option) => option.choice === choice)) return;
+        submitButton.disabled = true;
+        status.textContent = '投票送出中…';
+        try {
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { ...headers, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+            body: JSON.stringify({ nickname, choice })
+          });
+          if (!response.ok) throw new Error('投票失敗');
+          form.reset();
+          status.textContent = '投票成功，謝謝你！';
+          try {
+            await refreshCounts();
+          } catch {
+            status.textContent = '投票已成功儲存；票數暫時無法更新，請重新整理。';
+          }
+        } catch {
+          status.textContent = '無法確認投票結果，請重新整理查看票數後再決定是否重試。';
+        } finally {
+          submitButton.disabled = false;
+        }
+      });
+
+      refreshCounts().catch(() => {
+        options.forEach(({ counter }) => { counter.textContent = '暫時無法讀取'; });
+        status.textContent = '票數載入失敗，請稍後重新整理。';
+      });
+    })();
+  </script>
 </body>
 </html>
