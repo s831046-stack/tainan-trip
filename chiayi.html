@@ -36,6 +36,32 @@
     .tips { display: grid; gap: 10px; }
     .tip { padding: 12px 14px; border-radius: 7px; background: rgba(255,250,241,.7); }
     .tip strong { color: var(--main); }
+    .ledger { margin-top: 24px; }
+    .ledger-card { padding: 16px; border: 1px solid #d08b58; border-radius: 7px; background: var(--paper); }
+    .ledger-form { display: grid; gap: 10px; }
+    .ledger-form label { display: grid; gap: 3px; color: var(--muted); font-size: 14px; font-weight: 700; }
+    .ledger-form input, .ledger-form textarea, .ledger-form select { width: 100%; padding: 10px 11px; border: 1px solid #cda477; border-radius: 6px; background: #fffdf7; color: var(--ink); font: inherit; font-size: 16px; }
+    .ledger-form textarea { min-height: 62px; resize: vertical; }
+    .ledger-form button { min-height: 44px; padding: 9px 14px; border: 0; border-radius: 6px; background: var(--main); color: var(--cream); font: inherit; font-weight: 800; cursor: pointer; }
+    .ledger-form button:disabled { opacity: .55; cursor: wait; }
+    .member-row, .split-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: end; }
+    .split-list { display: grid; gap: 6px; margin-top: 4px; }
+    .split-list label { display: flex; grid-template-columns: auto 1fr; align-items: center; gap: 8px; padding: 7px 9px; border: 1px solid #ead1b4; border-radius: 5px; background: #fffdf7; }
+    .split-list input { width: 18px; height: 18px; }
+    .ledger-button-secondary { background: #ead1b4 !important; color: var(--ink) !important; }
+    .ledger-status { min-height: 24px; margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+    .ledger-status.error { color: #9d3b28; }
+    .ledger-status.success { color: #28634b; }
+    .ledger-summary { display: grid; gap: 8px; margin: 14px 0; }
+    .ledger-total { font-size: 20px; font-weight: 800; }
+    .balance-list, .expense-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .balance-item, .expense-item { padding: 10px; border: 1px solid #ead1b4; border-radius: 5px; background: rgba(255,250,241,.7); }
+    .balance-item { display: flex; justify-content: space-between; gap: 10px; }
+    .balance-positive { color: #28634b; }
+    .balance-negative { color: #9d3b28; }
+    .expense-item strong { color: var(--main); }
+    .expense-meta { color: var(--muted); font-size: 14px; }
+    .ledger-empty { color: var(--muted); font-size: 14px; }
     footer { margin-top: 30px; padding-top: 16px; border-top: 1px solid #d08b58; color: var(--muted); font-size: 13px; text-align: center; }
     @media (min-width: 600px) { .page { padding-top: 28px; } .hero { min-height: 360px; padding: 30px 26px 36px; } .stop { grid-template-columns: 65px minmax(0, 1fr); gap: 24px; } .timeline::before { left: 76px; } .stop::before { left: 71px; } }
   </style>
@@ -81,7 +107,116 @@
       </div>
     </section>
 
+    <section class="day ledger" aria-labelledby="ledger-title">
+      <div class="day-heading"><div class="day-number">記帳</div><div><h2 id="ledger-title">旅行共同帳本</h2><p>大家都能看、都能新增，舊帳目不會被改掉</p></div></div>
+      <div class="ledger-card">
+        <form id="member-form" class="ledger-form" autocomplete="off">
+          <div class="member-row"><label>新增旅伴暱稱<input id="member-name" maxlength="50" required placeholder="例如：小明"></label><button type="submit" class="ledger-button-secondary">加入</button></div>
+        </form>
+        <p id="ledger-status" class="ledger-status" role="status" aria-live="polite">正在連線帳本…</p>
+        <form id="expense-form" class="ledger-form" autocomplete="off">
+          <label>支出項目<input id="expense-item" maxlength="100" required placeholder="例如：午餐"></label>
+          <label>金額（NT$）<input id="expense-amount" type="number" min="0.01" step="0.01" required placeholder="0"></label>
+          <label>付款人<select id="expense-payer" required><option value="">請先加入旅伴</option></select></label>
+          <label>參與分帳的人</label>
+          <div id="split-list" class="split-list"><span class="ledger-empty">請先加入旅伴</span></div>
+          <label>備註（選填）<textarea id="expense-note" maxlength="500" placeholder="例如：含飲料"></textarea></label>
+          <button id="expense-submit" type="submit" disabled>新增支出</button>
+        </form>
+        <div id="ledger-summary" class="ledger-summary" hidden>
+          <div class="ledger-total">總旅費：<span id="ledger-total">NT$0</span></div>
+          <strong>每人目前結算</strong>
+          <ul id="balance-list" class="balance-list"></ul>
+          <strong>支出明細</strong>
+          <ul id="expense-list" class="expense-list"></ul>
+        </div>
+      </div>
+    </section>
+
     <footer>景點背景參考林業及自然保育署、交通部觀光署公開資料；營業與展覽資訊請以各單位公告為準。</footer>
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    (() => {
+      const SUPABASE_URL = 'https://xpbgtcoiiacszsdgeker.supabase.co';
+      const SUPABASE_PUBLIC_KEY = 'sb_publishable_GhwJf-ti7-9-WZ0V1eGEeQ_RXBpRLvr';
+      const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY);
+      const $ = (id) => document.getElementById(id);
+      const status = $('ledger-status');
+      const memberForm = $('member-form');
+      const expenseForm = $('expense-form');
+      const memberName = $('member-name');
+      const payer = $('expense-payer');
+      const splitList = $('split-list');
+      const submit = $('expense-submit');
+      let members = [];
+      let expenses = [];
+      let splits = [];
+
+      const money = (value) => `NT$${Number(value || 0).toLocaleString('zh-TW', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
+      const setStatus = (message, kind = '') => { status.textContent = message; status.className = `ledger-status ${kind}`; };
+
+      function renderMemberControls() {
+        payer.innerHTML = '<option value="">請選付款人</option>' + members.map(m => `<option value="${escapeHtml(m.nickname)}">${escapeHtml(m.nickname)}</option>`).join('');
+        splitList.innerHTML = members.length ? members.map(m => `<label><input type="checkbox" value="${escapeHtml(m.nickname)}">${escapeHtml(m.nickname)}</label>`).join('') : '<span class="ledger-empty">請先加入旅伴</span>';
+        submit.disabled = members.length === 0;
+      }
+
+      function escapeHtml(value) { return String(value).replace(/[&<>'"]/g, ch => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' }[ch])); }
+
+      function renderSummary() {
+        const total = expenses.reduce((sum, e) => sum + Number(e.amount), 0);
+        $('ledger-summary').hidden = false;
+        $('ledger-total').textContent = money(total);
+        const balances = Object.fromEntries(members.map(m => [m.nickname, { paid: 0, owed: 0 }]));
+        expenses.forEach(e => { if (balances[e.payer_nickname]) balances[e.payer_nickname].paid += Number(e.amount); });
+        splits.forEach(s => { if (balances[s.nickname]) balances[s.nickname].owed += Number(s.amount); });
+        $('balance-list').innerHTML = members.map(m => {
+          const b = balances[m.nickname]; const net = b.paid - b.owed;
+          const label = net > 0.004 ? `應收 ${money(net)}` : net < -0.004 ? `應付 ${money(Math.abs(net))}` : '已結清';
+          const cls = net > 0.004 ? 'balance-positive' : net < -0.004 ? 'balance-negative' : '';
+          return `<li class="balance-item"><span>${escapeHtml(m.nickname)}<small class="expense-meta">（付 ${money(b.paid)}／應付 ${money(b.owed)}）</small></span><strong class="${cls}">${label}</strong></li>`;
+        }).join('');
+        $('expense-list').innerHTML = expenses.length ? expenses.map(e => {
+          const people = splits.filter(s => Number(s.expense_id) === Number(e.id)).map(s => `${escapeHtml(s.nickname)} ${money(s.amount)}`).join('、');
+          return `<li class="expense-item"><strong>${escapeHtml(e.item)}</strong>・${money(e.amount)}<div class="expense-meta">${escapeHtml(e.payer_nickname)} 付款${e.note ? `・${escapeHtml(e.note)}` : ''}<br>分帳：${people}</div></li>`;
+        }).join('') : '<li class="ledger-empty">目前還沒有支出。</li>';
+      }
+
+      async function loadLedger() {
+        const [memberResult, expenseResult, splitResult] = await Promise.all([
+          db.from('trip_members').select('nickname').order('created_at'),
+          db.from('trip_expenses').select('id,item,amount,payer_nickname,note,created_at').order('created_at', { ascending: false }),
+          db.from('trip_expense_splits').select('expense_id,nickname,amount').order('id')
+        ]);
+        const firstError = memberResult.error || expenseResult.error || splitResult.error;
+        if (firstError) throw firstError;
+        members = memberResult.data || []; expenses = expenseResult.data || []; splits = splitResult.data || [];
+        renderMemberControls(); renderSummary(); setStatus('帳本已連線，所有人都可以新增支出。', 'success');
+      }
+
+      memberForm.addEventListener('submit', async (event) => {
+        event.preventDefault(); const nickname = memberName.value.trim(); if (!nickname) return;
+        const { error } = await db.from('trip_members').insert({ nickname });
+        if (error) { setStatus(error.code === '23505' ? '這個暱稱已存在。' : `加入失敗：${error.message}`, 'error'); return; }
+        memberName.value = ''; await loadLedger();
+      });
+
+      expenseForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const participants = [...splitList.querySelectorAll('input:checked')].map(input => input.value);
+        if (!participants.length) { setStatus('請至少選一位分帳成員。', 'error'); return; }
+        submit.disabled = true; setStatus('正在新增支出…');
+        const { error } = await db.rpc('add_trip_expense', {
+          p_item: $('expense-item').value.trim(), p_amount: Number($('expense-amount').value),
+          p_payer_nickname: payer.value, p_participants: participants, p_note: $('expense-note').value.trim() || null
+        });
+        if (error) { setStatus(`新增失敗：${error.message}`, 'error'); submit.disabled = false; return; }
+        expenseForm.reset(); await loadLedger();
+      });
+
+      loadLedger().catch(error => setStatus(`帳本載入失敗：${error.message}`, 'error'));
+    })();
+  </script>
 </body>
 </html>
