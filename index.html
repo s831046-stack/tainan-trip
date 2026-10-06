@@ -164,6 +164,37 @@
         { choice: '阿堂鹹粥', counter: document.getElementById('count-porridge') },
         { choice: '阿村牛肉湯', counter: document.getElementById('count-beef') }
       ];
+      const receiptKey = 'tainan-trip:ss:votes:receipt:v1';
+      let receipt = null;
+
+      function readReceipt() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(receiptKey));
+          return saved && typeof saved.nickname === 'string' &&
+            options.some((option) => option.choice === saved.choice) ? saved : null;
+        } catch {
+          return null;
+        }
+      }
+
+      function showReceipt(saved) {
+        receipt = saved;
+        nicknameInput.value = saved.nickname;
+        form.querySelectorAll('input').forEach((input) => {
+          if (input.type === 'radio') input.checked = input.value === saved.choice;
+          input.disabled = true;
+        });
+        submitButton.disabled = true;
+        status.textContent = `你已經投過了，選項：${saved.choice}。`;
+      }
+
+      const savedReceipt = readReceipt();
+      if (savedReceipt) showReceipt(savedReceipt);
+      window.addEventListener('storage', (event) => {
+        if (event.key !== receiptKey) return;
+        const saved = readReceipt();
+        if (saved) showReceipt(saved);
+      });
 
       async function refreshCounts() {
         const counts = await Promise.all(options.map(async ({ choice }) => {
@@ -183,6 +214,11 @@
 
       form.addEventListener('submit', async (event) => {
         event.preventDefault();
+        const saved = receipt || readReceipt();
+        if (saved) {
+          showReceipt(saved);
+          return;
+        }
         if (submitButton.disabled) return;
         const nickname = nicknameInput.value.trim();
         const choice = new FormData(form).get('choice');
@@ -201,23 +237,30 @@
             body: JSON.stringify({ nickname, choice })
           });
           if (!response.ok) throw new Error('投票失敗');
-          form.reset();
-          status.textContent = '投票成功，謝謝你！';
+          const saved = { nickname, choice };
+          showReceipt(saved);
+          try {
+            localStorage.setItem(receiptKey, JSON.stringify(saved));
+          } catch {
+            status.textContent += ' 此瀏覽器無法儲存紀錄，重新整理後可能無法記住。';
+          }
           try {
             await refreshCounts();
           } catch {
-            status.textContent = '投票已成功儲存；票數暫時無法更新，請重新整理。';
+            status.textContent += ' 票數暫時無法更新，請重新整理。';
           }
         } catch {
           status.textContent = '無法確認投票結果，請重新整理查看票數後再決定是否重試。';
         } finally {
-          submitButton.disabled = false;
+          submitButton.disabled = Boolean(receipt);
         }
       });
 
       refreshCounts().catch(() => {
         options.forEach(({ counter }) => { counter.textContent = '暫時無法讀取'; });
-        status.textContent = '票數載入失敗，請稍後重新整理。';
+        status.textContent = receipt
+          ? `你已經投過了，選項：${receipt.choice}。票數載入失敗，請稍後重新整理。`
+          : '票數載入失敗，請稍後重新整理。';
       });
     })();
   </script>
